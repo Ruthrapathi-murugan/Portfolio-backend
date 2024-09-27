@@ -21,6 +21,21 @@ const transporter = nodemailer.createTransport({
 });
 
 
+
+
+// Allow requests from your frontend domain
+const corsOptions = {
+  origin: 'https://ruthrapathi-info.netlify.app', // Your frontend URL
+  methods: ['GET', 'POST'], // Add other HTTP methods as needed
+  credentials: true, // Enable this if you are sending cookies or authentication tokens
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions)); // Allow preflight requests from all routes
+app.use(cors());
+
+
 // POST route to handle contact form submission
 app.post('/api/contact', (req, res) => {
     const { name, email, message } = req.body;
